@@ -1,0 +1,1325 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Break Free - Addiction Awareness & Recovery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #7c3aed;
+            --accent-color: #10b981;
+            --danger-color: #ef4444;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --text-dark: #374151;
+            --text-light: #6b7280;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 10px 0;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.9), rgba(124, 58, 237, 0.9)),
+                        url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 40px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 22px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: white;
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 42px;
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 18px;
+            margin-bottom: 60px;
+        }
+
+        /* Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+            border-color: var(--primary-color);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .card-icon img {
+            width: 35px;
+            height: 35px;
+        }
+
+        .card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Statistics */
+        .stats {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 60px 40px;
+            border-radius: 20px;
+            margin: 60px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .stat-item p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        /* Hazards Page */
+        .hazard-section {
+            margin-bottom: 60px;
+        }
+
+        .hazard-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hazard-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hazard-image img {
+            width: 120px;
+            height: 120px;
+            filter: brightness(0) invert(1);
+        }
+
+        .hazard-text h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .hazard-text ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .hazard-text li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            color: var(--text-light);
+        }
+
+        .hazard-text li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background: url('https://cdn-icons-png.flaticon.com/128/564/564619.png') center/contain no-repeat;
+        }
+
+        /* Prevention Tips */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .tip-card {
+            background: linear-gradient(135deg, var(--accent-color), #059669);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .tip-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(16, 185, 129, 0.3);
+        }
+
+        .tip-card h4 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tip-card h4 img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) invert(1);
+        }
+
+        /* Resources */
+        .resource-card {
+            background: white;
+            border-left: 5px solid var(--primary-color);
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .resource-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .contact-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 10px 0;
+            font-size: 18px;
+            color: var(--text-dark);
+        }
+
+        .contact-info img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .emergency {
+            background: linear-gradient(135deg, var(--danger-color), #dc2626);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .emergency h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .emergency .btn {
+            background: white;
+            color: var(--danger-color);
+            font-size: 20px;
+        }
+
+        /* Camera Feature */
+        .camera-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 40px;
+            border-radius: 20px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .camera-container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        #video, #canvas {
+            width: 100%;
+            max-width: 640px;
+            border-radius: 10px;
+            background: #000;
+        }
+
+        #canvas {
+            display: none;
+        }
+
+        .camera-controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        #capturedImage {
+            margin-top: 20px;
+            max-width: 100%;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .camera-info {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 40px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 80px;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                padding: 40px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                transition: right 0.3s ease;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .hazard-content {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Page Specific Styles */
+        .page-header {
+            padding-top: 120px;
+            padding-bottom: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .content-section {
+            background: white;
+        }
+
+        .page-content {
+            display: none;
+        }
+
+        .page-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="data:image/jpeg;base64,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" alt="Break Free">
+                Break Free
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#hazards" class="nav-link">Hazards</a></li>
+                <li><a href="#prevention" class="nav-link">Prevention</a></li>
+                <li><a href="#camera" class="nav-link">ID Support</a></li>
+                <li><a href="#resources" class="nav-link">Resources</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page-content active">
+        <section class="hero">
+            <div class="hero-content fade-in">
+                <h1>Break Free from Addiction</h1>
+                <p>Your journey to recovery starts here. Get the support, information, and resources you need to overcome addiction and reclaim your life.</p>
+                <a href="#hazards" class="btn">Learn More</a>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Understanding Addiction</h2>
+            <p class="section-subtitle">Addiction is a complex condition that affects millions worldwide. Knowledge is the first step toward recovery.</p>
+            
+            <div class="cards">
+                <div class="card">
+                    <div class="card-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/128/2838/2838912.png" alt="Brain">
+                    </div>
+                    <h3>What is Addiction?</h3>
+                    <p>Addiction is a chronic disease characterized by compulsive substance use despite harmful consequences. It affects brain chemistry and behavior patterns.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/128/564/564619.png" alt="Warning">
+                    </div>
+                    <h3>Common Substances</h3>
+                    <p>Alcohol, tobacco, prescription medications, illegal drugs, and even behavioral addictions can severely impact your health and wellbeing.</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/128/1041/1041916.png" alt="Strength">
+                    </div>
+                    <h3>Recovery is Possible</h3>
+                    <p>With proper support, treatment, and determination, millions of people successfully overcome addiction every year. You can too.</p>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <h3>280M+</h3>
+                        <p>People affected by substance use disorders worldwide</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>75%</h3>
+                        <p>Can achieve long-term recovery with treatment</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>24/7</h3>
+                        <p>Help available anytime you need it</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Hazards Page -->
+    <div id="hazards" class="page-content">
+        <div class="page-header">
+            <h1>Hazards of Addiction</h1>
+            <p>Understanding the serious consequences of substance abuse</p>
+        </div>
+
+        <section class="content-section">
+            <div class="hazard-section">
+                <h2 class="section-title">Physical Health Effects</h2>
+                <div class="hazard-content">
+                    <div class="hazard-image">
+                        <img src="https://cdn-icons-png.flaticon.com/512/7292/7292476.png" alt="">
+                    </div>
+                    <div class="hazard-text">
+                        <h3>How Addiction Damages Your Body</h3>
+                        <ul style="font-size: 20px;">
+                            <li>Cardiovascular disease and heart attacks</li>
+                            <li>Liver damage and cirrhosis</li>
+                            <li>Respiratory problems and lung disease</li>
+                            <li>Weakened immune system</li>
+                            <li>Increased risk of cancer</li>
+                            <li>Kidney failure and organ damage</li>
+                            <li>Malnutrition and vitamin deficiencies</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hazard-section">
+                <h2 class="section-title">Mental Health Impact</h2>
+                <div class="hazard-content">
+                    <div class="hazard-text">
+                        <h3>Psychological Consequences</h3>
+                        <ul style="font-size: 20px;">
+                            <li>Depression and anxiety disorders</li>
+                            <li>Memory loss and cognitive decline</li>
+                            <li>Paranoia and psychosis</li>
+                            <li>Mood swings and emotional instability</li>
+                            <li>Increased suicide risk</li>
+                            <li>Sleep disorders and insomnia</li>
+                            <li>Loss of motivation and pleasure</li>
+                            <li>Personality changes</li>
+                        </ul>
+                    </div>
+                    <div class="hazard-image">
+                        <img src="https://cdn-icons-png.flaticon.com/128/2838/2838912.png" alt="Brain">
+                    </div>
+                </div>
+            </div>
+
+            <div class="hazard-section">
+                <h2 class="section-title">Social Consequences</h2>
+                <div class="hazard-content">
+                    <div class="hazard-image">
+                        <img src="https://cdn-icons-png.flaticon.com/128/681/681494.png" alt="People">
+                    </div>
+                    <div class="hazard-text">
+                        <h3>Impact on Relationships and Society</h3>
+                        <ul style="font-size: 20px;">
+                            <li>Family breakdown and divorce</li>
+                            <li>Loss of friendships and social isolation</li>
+                            <li>Child neglect and domestic violence</li>
+                            <li>Job loss and career destruction</li>
+                            <li>Legal problems and incarceration</li>
+                            <li>Homelessness and poverty</li>
+                            <li>Loss of trust and reputation</li>
+                            <li>Social stigma and discrimination</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hazard-section">
+                <h2 class="section-title">Economic Impact</h2>
+                <div class="hazard-content">
+                    <div class="hazard-text">
+                        <h3>Financial Destruction</h3>
+                        <ul style="font-size: 20px;">
+                            <li>Cost of substances draining savings</li>
+                            <li>Medical bills from health complications</li>
+                            <li>Lost income from unemployment</li>
+                            <li>Legal fees and fines</li>
+                            <li>Bankruptcy and debt accumulation</li>
+                            <li>Loss of property and assets</li>
+                            <li>Reduced earning potential</li>
+                            <li>Burden on family finances</li>
+                        </ul>
+                    </div>
+                    <div class="hazard-image">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3135/3135706.png" alt="Money">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Prevention Page -->
+    <div id="prevention" class="page-content">
+        <div class="page-header">
+            <h1>Prevention & Recovery</h1>
+            <p>Strategies to avoid addiction and maintain a healthy lifestyle</p>
+        </div>
+
+        <section class="content-section">
+            <h2 class="section-title">Prevention Strategies</h2>
+            <p class="section-subtitle">Take control of your life with these evidence-based approaches</p>
+
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h4><img src="https://cdn-icons-png.flaticon.com/128/3976/3976625.png" alt="Education"> Education</h4>
+                    <p>Learn about the risks and effects of substances. Knowledge empowers you to make informed decisions.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><img src="https://cdn-icons-png.flaticon.com/128/2593/2593549.png" alt="Support"> Strong Support System</h4>
+                    <p>Build healthy relationships with family and friends who support your wellbeing.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><img src="https://cdn-icons-png.flaticon.com/128/2913/2913169.png" alt="Meditation"> Stress Management</h4>
+                    <p>Develop healthy coping mechanisms like meditation, exercise, and therapy.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><img src="https://cdn-icons-png.flaticon.com/128/2622/2622143.png" alt="Goals"> Set Goals</h4>
+                    <p>Have clear life goals and purposes that motivate you to stay healthy.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><img src="https://cdn-icons-png.flaticon.com/128/1828/1828843.png" alt="Say No"> Say No</h4>
+                    <p>Practice refusing peer pressure. True friends respect your boundaries.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><img src="https://cdn-icons-png.flaticon.com/128/2936/2936886.png" alt="Exercise"> Stay Active</h4>
+                    <p>Regular physical activity reduces stress and improves mental health naturally.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><img src="https://cdn-icons-png.flaticon.com/128/2966/2966327.png" alt="Mental Health"> Mental Health Care</h4>
+                    <p>Address underlying mental health issues with professional support.</p>
+                </div>
+                <div class="tip-card">
+                    <h4><img src="https://cdn-icons-png.flaticon.com/128/3176/3176369.png" alt="Activities"> Positive Activities</h4>
+                    <p>Engage in hobbies, volunteer work, and activities that bring joy and fulfillment.</p>
+                </div>
+            </div>
+
+            <div class="hazard-section" style="margin-top: 60px;">
+                <h2 class="section-title">Recovery Steps</h2>
+                <div class="cards">
+                    <div class="card">
+                        <h3>1. Acknowledge the Problem</h3>
+                        <p>Recognize and admit that you have an addiction. This is the crucial first step to recovery.</p>
+                    </div>
+                    <div class="card">
+                        <h3>2. Seek Professional Help</h3>
+                        <p>Contact healthcare providers, counselors, or addiction specialists for proper guidance.</p>
+                    </div>
+                    <div class="card">
+                        <h3>3. Detoxification</h3>
+                        <p>Undergo medically supervised detox to safely manage withdrawal symptoms.</p>
+                    </div>
+                    <div class="card">
+                        <h3>4. Rehabilitation Program</h3>
+                        <p>Participate in inpatient or outpatient treatment programs tailored to your needs.</p>
+                    </div>
+                    <div class="card">
+                        <h3>5. Ongoing Support</h3>
+                        <p>Join support groups like AA, NA, or counseling for continued recovery assistance.</p>
+                    </div>
+                    <div class="card">
+                        <h3>6. Lifestyle Changes</h3>
+                        <p>Develop new habits, relationships, and routines that support a substance-free life.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Camera/ID Support Page -->
+    <div id="camera" class="page-content">
+        <div class="page-header">
+            <h1>Identification Support Tool</h1>
+            <p>Capture and document your recovery journey</p>
+        </div>
+
+        <section class="content-section">
+            <div class="camera-section">
+                <h2>Document Your Progress</h2>
+                <p>Use this tool to take progress photos, document milestones, or capture important information for your recovery journey.</p>
+                
+                <div class="camera-container">
+                    <video id="video" autoplay playsinline></video>
+                    <canvas id="canvas"></canvas>
+                    <img id="capturedImage" alt="Captured Photo">
+                    
+                    <div class="camera-controls">
+                        <button id="startCamera" class="btn">Start Camera</button>
+                        <button id="capturePhoto" class="btn" style="display:none;">Capture Photo</button>
+                        <button id="retakePhoto" class="btn" style="display:none;">Retake</button>
+                        <button id="downloadPhoto" class="btn" style="display:none;">Download Photo</button>
+                        <button id="stopCamera" class="btn" style="display:none; background: var(--danger-color); color: white;">Stop Camera</button>
+                    </div>
+                </div>
+
+                <div class="camera-info">
+                    <h3>How to Use This Tool:</h3>
+                    <p><strong>✓</strong> Document your recovery milestones with dated photos</p>
+                    <p><strong>✓</strong> Keep a visual record of your physical health improvements</p>
+                    <p><strong>✓</strong> Capture motivational notes or affirmations</p>
+                    <p><strong>✓</strong> Take photos of resources, phone numbers, or support information</p>
+                    <p><strong>✓</strong> Share progress with your support group or counselor</p>
+                    <p style="margin-top: 20px; font-size: 14px; opacity: 0.8;">Note: All photos are processed locally on your device. Nothing is uploaded or stored on our servers.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Resources Page -->
+    <div id="resources" class="page-content">
+        <div class="page-header">
+            <h1>Help & Resources</h1>
+            <p>Get immediate support and find treatment options</p>
+        </div>
+
+        <section class="content-section">
+            <div class="emergency">
+                <h2>🚨 Need Immediate Help?</h2>
+                <p style="font-size: 18px; margin-bottom: 30px;">If you or someone you know is in crisis, don't wait. Help is available right now.</p>
+                <a href="tel:988" class="btn">Call 988 - Suicide & Crisis Lifeline</a>
+            </div>
+
+            <h2 class="section-title">National Helplines</h2>
+            
+            <div class="resource-card">
+                <h3>SAMHSA National Helpline</h3>
+                <div class="contact-info">
+                    <img src="https://cdn-icons-png.flaticon.com/128/724/724664.png" alt="Phone">
+                    <strong>1-800-662-4357</strong>
+                </div>
+                <p>Free, confidential, 24/7 treatment referral and information service for individuals and families facing substance abuse disorders.</p>
+            </div>
+
+            <div class="resource-card">
+                <h3>National Suicide Prevention Lifeline</h3>
+                <div class="contact-info">
+                    <img src="https://cdn-icons-png.flaticon.com/128/724/724664.png" alt="Phone">
+                    <strong>988 or 1-800-273-8255</strong>
+                </div>
+                <p>Available 24/7 for anyone in suicidal crisis or emotional distress.</p>
+            </div>
+
+            <div class="resource-card">
+                <h3>Alcoholics Anonymous (AA)</h3>
+                <div class="contact-info">
+                    <img src="https://cdn-icons-png.flaticon.com/128/724/724664.png" alt="Phone">
+                    <strong>Check local listings</strong>
+                </div>
+                <div class="contact-info">
+                    <img src="https://cdn-icons-png.flaticon.com/128/2111/2111499.png" alt="Website">
+                    <a href="https://www.aa.org" target="_blank" style="color: var(--primary-color);">www.aa.org</a>
+                </div>
+                <p>Fellowship of people who share their experience, strength, and hope to solve their common problem with alcohol.</p>
+            </div>
+
+            <div class="resource-card">
+                <h3>Narcotics Anonymous (NA)</h3>
+                <div class="contact-info">
+                    <img src="https://cdn-icons-png.flaticon.com/128/724/724664.png" alt="Phone">
+                    <strong>1-818-773-9999</strong>
+                </div>
+                <div class="contact-info">
+                    <img src="https://cdn-icons-png.flaticon.com/128/2111/2111499.png" alt="Website">
+                    <a href="https://www.na.org" target="_blank" style="color: var(--primary-color);">www.na.org</a>
+                </div>
+                <p>International community-based association for recovering drug addicts.</p>
+            </div>
+
+            <div class="resource-card">
+                <h3>National Institute on Drug Abuse (NIDA)</h3>
+                <div class="contact-info">
+                    <img src="https://cdn-icons-png.flaticon.com/128/2111/2111499.png" alt="Website">
+                    <a href="https://www.drugabuse.gov" target="_blank" style="color: var(--primary-color);">www.drugabuse.gov</a>
+                </div>
+                <p>Resources, research findings, and treatment information about drug abuse and addiction.</p>
+            </div>
+
+            <div class="resource-card">
+                <h3>Partnership to End Addiction</h3>
+                <div class="contact-info">
+                    <img src="https://cdn-icons-png.flaticon.com/128/724/724664.png" alt="Phone">
+                    <strong>1-855-378-4373</strong>
+                </div>
+                <div class="contact-info">
+                    <img src="https://cdn-icons-png.flaticon.com/128/2111/2111499.png" alt="Website">
+                    <a href="https://www.drugfree.org" target="_blank" style="color: var(--primary-color);">www.drugfree.org</a>
+                </div>
+                <p>Parent helpline and resources for families dealing with substance abuse.</p>
+            </div>
+
+            <h2 class="section-title" style="margin-top: 60px;">Find Treatment Centers</h2>
+            
+            <div class="cards">
+                <div class="card">
+                    <div class="card-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/128/2913/2913133.png" alt="Hospital">
+                    </div>
+                    <h3>SAMHSA Treatment Locator</h3>
+                    <p>Find local treatment facilities, support groups, and community organizations.</p>
+                    <a href="https://findtreatment.gov" target="_blank" style="color: var(--primary-color); font-weight: 600;">Visit Treatment Locator →</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/128/2956/2956769.png" alt="Search">
+                    </div>
+                    <h3>Psychology Today Directory</h3>
+                    <p>Search for addiction therapists and treatment centers by location and specialty.</p>
+                    <a href="https://www.psychologytoday.com" target="_blank" style="color: var(--primary-color); font-weight: 600;">Find a Therapist →</a>
+                </div>
+                <div class="card">
+                    <div class="card-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/128/2913/2913087.png" alt="Medicine">
+                    </div>
+                    <h3>Medication-Assisted Treatment</h3>
+                    <p>Locate providers offering medications combined with counseling for substance use disorders.</p>
+                    <a href="https://www.samhsa.gov/medication-assisted-treatment" target="_blank" style="color: var(--primary-color); font-weight: 600;">Learn More →</a>
+                </div>
+            </div>
+
+            <div class="stats" style="margin-top: 60px;">
+                <h2 style="text-align: center; margin-bottom: 40px;">Remember: You're Not Alone</h2>
+                <p style="text-align: center; font-size: 18px; opacity: 0.95;">Recovery is a journey, not a destination. Every step forward, no matter how small, is progress. Reach out for help today.</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Break Free</h3>
+                <p>Empowering individuals and families to overcome addiction through education, support, and resources.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#hazards">Hazards</a></li>
+                    <li><a href="#prevention">Prevention</a></li>
+                    <li><a href="#camera">ID Support</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Emergency</h3>
+                <ul>
+                    <li><a href="tel:988">988 - Crisis Lifeline</a></li>
+                    <li><a href="tel:1-800-662-4357">SAMHSA: 1-800-662-4357</a></li>
+                    <li><a href="tel:911">911 - Emergency Services</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Get Informed</h3>
+                <ul>
+                    <li><a href="https://www.samhsa.gov" target="_blank">SAMHSA</a></li>
+                    <li><a href="https://www.drugabuse.gov" target="_blank">NIDA</a></li>
+                    <li><a href="https://www.aa.org" target="_blank">AA</a></li>
+                    <li><a href="https://www.na.org" target="_blank">NA</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Break Free - Addiction Awareness. This website provides educational information only. Please consult healthcare professionals for medical advice.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth Navigation Between Pages
+        const navLinksItems = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page-content');
+
+        navLinksItems.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                navLinksItems.forEach(l => l.classList.remove('active'));
+                pages.forEach(p => p.classList.remove('active'));
+                
+                link.classList.add('active');
+                
+                const targetId = link.getAttribute('href').substring(1);
+                const targetPage = document.getElementById(targetId);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                    
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }
+                
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Camera functionality
+        let stream = null;
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const capturedImage = document.getElementById('capturedImage');
+        const startCameraBtn = document.getElementById('startCamera');
+        const capturePhotoBtn = document.getElementById('capturePhoto');
+        const retakePhotoBtn = document.getElementById('retakePhoto');
+        const downloadPhotoBtn = document.getElementById('downloadPhoto');
+        const stopCameraBtn = document.getElementById('stopCamera');
+
+        startCameraBtn.addEventListener('click', async () => {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'user' }, 
+                    audio: false 
+                });
+                video.srcObject = stream;
+                video.style.display = 'block';
+                canvas.style.display = 'none';
+                capturedImage.style.display = 'none';
+                
+                startCameraBtn.style.display = 'none';
+                capturePhotoBtn.style.display = 'inline-block';
+                stopCameraBtn.style.display = 'inline-block';
+                retakePhotoBtn.style.display = 'none';
+                downloadPhotoBtn.style.display = 'none';
+            } catch (err) {
+                alert('Error accessing camera: ' + err.message);
+            }
+        });
+
+        capturePhotoBtn.addEventListener('click', () => {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0);
+            
+            const imageDataUrl = canvas.toDataURL('image/png');
+            capturedImage.src = imageDataUrl;
+            capturedImage.style.display = 'block';
+            video.style.display = 'none';
+            
+            capturePhotoBtn.style.display = 'none';
+            retakePhotoBtn.style.display = 'inline-block';
+            downloadPhotoBtn.style.display = 'inline-block';
+        });
+
+        retakePhotoBtn.addEventListener('click', () => {
+            capturedImage.style.display = 'none';
+            video.style.display = 'block';
+            
+            retakePhotoBtn.style.display = 'none';
+            downloadPhotoBtn.style.display = 'none';
+            capturePhotoBtn.style.display = 'inline-block';
+        });
+
+        downloadPhotoBtn.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.download = 'recovery-progress-' + new Date().getTime() + '.png';
+            link.href = capturedImage.src;
+            link.click();
+        });
+
+        stopCameraBtn.addEventListener('click', () => {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                video.srcObject = null;
+                stream = null;
+            }
+            
+            video.style.display = 'none';
+            capturedImage.style.display = 'none';
+            startCameraBtn.style.display = 'inline-block';
+            capturePhotoBtn.style.display = 'none';
+            stopCameraBtn.style.display = 'none';
+            retakePhotoBtn.style.display = 'none';
+            downloadPhotoBtn.style.display = 'none';
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card, .hazard-section, .tip-card, .resource-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Counter animation for statistics
+        function animateCounter(element, target, duration = 2000) {
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = formatNumber(target);
+                    clearInterval(timer);
+                } else {
+                    element.textContent = formatNumber(Math.floor(current));
+                }
+            }, 16);
+        }
+
+        function formatNumber(num) {
+            if (num >= 1000000) {
+                return (num / 1000000).toFixed(0) + 'M+';
+            } else if (num >= 1000) {
+                return (num / 1000).toFixed(0) + 'K+';
+            }
+            return num + '%';
+        }
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.stat-item h3');
+                    counters.forEach((counter, index) => {
+                        const values = [280000000, 75, 24];
+                        setTimeout(() => {
+                            animateCounter(counter, values[index], 2000);
+                        }, index * 200);
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        document.querySelectorAll('.card, .btn, .tip-card').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                el.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
+        });
+
+        const emergencyBtn = document.querySelector('.emergency .btn');
+        if (emergencyBtn) {
+            setInterval(() => {
+                emergencyBtn.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    emergencyBtn.style.transform = 'scale(1)';
+                }, 500);
+            }, 3000);
+        }
+
+        window.addEventListener('scroll', () => {
+            const hero = document.querySelector('.hero');
+            if (hero && window.pageYOffset < window.innerHeight) {
+                const scrolled = window.pageYOffset;
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        window.addEventListener('load', () => {
+            const hash = window.location.hash;
+            if (hash) {
+                const link = document.querySelector(`a[href="${hash}"]`);
+                if (link) {
+                    link.click();
+                }
+            }
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#home' && href !== '#hazards' && href !== '#prevention' && href !== '#camera' && href !== '#resources') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
